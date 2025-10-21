@@ -59,7 +59,7 @@ erDiagram
     DATETIME(6) updated_at
     DATETIME(6) deleted_at
   }
-  CATEGORIES }o--|| CATEGORIES : (parent_id)
+  CATEGORIES }o--|| CATEGORIES : "parent_id"
 ```
 
 ## Indexes
