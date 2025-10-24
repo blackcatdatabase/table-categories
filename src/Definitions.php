@@ -6,7 +6,7 @@ namespace BlackCat\Database\Packages\Categories;
 final class Definitions {
     // --- základní metadata ---
     public static function table(): string { return 'categories'; }
-    public static function contractView(): string { return 'v_categories_contract'; }
+    public static function contractView(): string { return 'vw_categories'; }
     /** @return string[] */
     public static function columns(): array { return [ 'id', 'name', 'slug', 'parent_id', 'created_at', 'updated_at', 'deleted_at' ]; }
     public static function pk(): string { return 'id'; }
