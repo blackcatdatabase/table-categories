@@ -5,6 +5,7 @@
 CREATE OR REPLACE VIEW vw_categories AS
 SELECT
   id,
+  tenant_id,
   name,
   slug,
   parent_id,

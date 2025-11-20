@@ -4,6 +4,7 @@
 -- Contract view for [categories]
 CREATE OR REPLACE ALGORITHM=MERGE SQL SECURITY INVOKER VIEW vw_categories AS
 SELECT
+  tenant_id,
   id,
   name,
   slug,
