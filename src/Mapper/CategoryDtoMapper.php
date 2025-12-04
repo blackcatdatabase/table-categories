@@ -20,9 +20,9 @@ final class CategoryDtoMapper
     private const COL_TO_PROP = [ 'id' => 'id', 'tenant_id' => 'tenantId', 'name' => 'name', 'slug' => 'slug', 'slug_ci' => 'slugCi', 'parent_id' => 'parentId', 'created_at' => 'createdAt', 'updated_at' => 'updatedAt', 'version' => 'version', 'deleted_at' => 'deletedAt', 'is_live' => 'isLive' ];
 
     /** @var string[] */
-    private const BOOL_COLS   = [];
+    private const BOOL_COLS   = [ 'is_live' ];
     /** @var string[] */
-    private const INT_COLS    = [ 'id', 'tenant_id', 'parent_id', 'version', 'is_live' ];
+    private const INT_COLS    = [ 'id', 'tenant_id', 'parent_id', 'version' ];
     /** @var string[] */
     private const FLOAT_COLS  = [];
     /** @var string[] */
