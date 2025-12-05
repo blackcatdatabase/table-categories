@@ -98,7 +98,7 @@ SQL;
         $hasView  = SchemaIntrospector::hasView($db, $d, $view);
 
         // Quick index/FK check â€“ generator injects names (case-sensitive per DB)
-        $expectedIdx = [ 'idx_categories_name_ci', 'idx_categories_parent', 'idx_categories_tenant_parent', 'ux_categories_tenant_id', 'ux_categories_tenant_slug_live_ci' ];
+        $expectedIdx = [ 'idx_categories_name_ci', 'idx_categories_tenant_parent', 'ux_categories_tenant_id', 'ux_categories_tenant_slug_live_ci' ];
         if ($d->isMysql()) {
             // Drop PG-only index naming patterns (e.g., GIN/GiST)
             $expectedIdx = array_values(array_filter(
@@ -131,7 +131,7 @@ SQL;
             'columns'     => Definitions::columns(),
             'version'     => $this->version(),
             'dialects'    => [ 'mysql', 'postgres' ],
-            'indexes'     => [ 'idx_categories_name_ci', 'idx_categories_parent', 'idx_categories_tenant_parent', 'ux_categories_tenant_id', 'ux_categories_tenant_slug_live_ci' ],
+            'indexes'     => [ 'idx_categories_name_ci', 'idx_categories_tenant_parent', 'ux_categories_tenant_id', 'ux_categories_tenant_slug_live_ci' ],
             'foreignKeys' => [ 'fk_categories_parent', 'fk_categories_tenant' ],
         ];
     }
