@@ -32,15 +32,45 @@ final class CategoriesModule implements ModuleInterface
         $table = SqlIdentifier::qi($db, $this->table());
         $view  = SqlIdentifier::qi($db, self::contractView());
 
+        if ($d->isMysql()) {
+            $createViewSql = <<<'SQL'
+CREATE OR REPLACE ALGORITHM=MERGE SQL SECURITY INVOKER VIEW vw_categories AS
+SELECT
+  tenant_id,
+  id,
+  name,
+  slug,
+  parent_id,
+  created_at,
+  updated_at,
+  version,
+  deleted_at
+FROM categories;
+SQL;
+        } else {
+            $createViewSql = <<<'SQL'
+CREATE OR REPLACE VIEW vw_categories AS
+SELECT
+  id,
+  tenant_id,
+  name,
+  slug,
+  parent_id,
+  created_at,
+  updated_at,
+  version,
+  deleted_at
+FROM categories;
+SQL;
+        }
+
         if (\class_exists('\\BlackCat\\Database\\Support\\DdlGuard')) {
-            (new \BlackCat\Database\Support\DdlGuard($db, $d))->applyCreateView(
-                "CREATE VIEW {$view} AS SELECT * FROM {$table}"
-            );
+            (new \BlackCat\Database\Support\DdlGuard($db, $d))->applyCreateView($createViewSql);
         } else {
             // Prefer CREATE OR REPLACE VIEW (gentle on dependencies)
-            $sql = "CREATE OR REPLACE VIEW {$view} AS SELECT * FROM {$table}";
-            $db->exec($sql);
+            $db->exec($createViewSql);
         }
+
     }
 
     public function upgrade(Database $db, SqlDialect $d, string $from): void
@@ -67,8 +97,15 @@ final class CategoriesModule implements ModuleInterface
         $hasTable = SchemaIntrospector::hasTable($db, $d, $table);
         $hasView  = SchemaIntrospector::hasView($db, $d, $view);
 
-        // Quick index/FK check – generator injects names (case-sensitive per DB)
+        // Quick index/FK check â€“ generator injects names (case-sensitive per DB)
         $expectedIdx = [ 'idx_categories_name_ci', 'idx_categories_tenant_parent', 'ux_categories_tenant_id', 'ux_categories_tenant_slug_live_ci' ];
+        if ($d->isMysql()) {
+            // Drop PG-only index naming patterns (e.g., GIN/GiST)
+            $expectedIdx = array_values(array_filter(
+                $expectedIdx,
+                static fn(string $n): bool => !str_starts_with($n, 'gin_') && !str_starts_with($n, 'gist_')
+            ));
+        }
         $expectedFk  = [ 'fk_categories_parent', 'fk_categories_tenant' ];
 
         $haveIdx = $hasTable ? SchemaIntrospector::listIndexes($db, $d, $table)     : [];
