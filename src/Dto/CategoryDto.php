@@ -13,6 +13,7 @@ final class CategoryDto implements \JsonSerializable {
         public readonly int $id,
         public readonly int $tenantId,
         #[\SensitiveParameter] public readonly string $name,
+        public readonly ?string $nameCi,
         public readonly string $slug,
         public readonly ?string $slugCi,
         public readonly ?int $parentId,
