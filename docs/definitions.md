@@ -5,13 +5,13 @@ Hierarchical product categories.
 ## Columns
 | Column | Type | Null | Default | Description |
 | --- | --- | --- | --- | --- |
-| created_at | DATETIME(6) | NO | CURRENT_TIMESTAMP(6) | Creation timestamp (UTC). |
-| deleted_at | DATETIME(6) | YES |  | Soft delete timestamp. |
+| created_at | mysql: DATETIME(6) / postgres: TIMESTAMPTZ(6) | NO | CURRENT_TIMESTAMP(6) | Creation timestamp (UTC). |
+| deleted_at | mysql: DATETIME(6) / postgres: TIMESTAMPTZ(6) | YES |  | Soft delete timestamp. |
 | id | BIGINT | NO |  | Surrogate primary key. |
 | name | VARCHAR(255) | NO |  | Category name. |
 | parent_id | BIGINT | YES |  | Parent category (self-FK), nullable. |
 | slug | VARCHAR(255) | NO |  | Unique slug. |
-| updated_at | DATETIME(6) | NO | CURRENT_TIMESTAMP(6) | Update timestamp (UTC). |
+| updated_at | mysql: DATETIME(6) / postgres: TIMESTAMPTZ(6) | NO | CURRENT_TIMESTAMP(6) | Update timestamp (UTC). |
 
 ## Engine Details
 
