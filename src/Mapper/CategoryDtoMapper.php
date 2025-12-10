@@ -17,7 +17,7 @@ use BlackCat\Database\Support\DtoHydrator;
 final class CategoryDtoMapper
 {
     /** @var array<string,string> Column -> DTO property */
-    private const COL_TO_PROP = [ 'id' => 'id', 'tenant_id' => 'tenantId', 'name' => 'name', 'slug' => 'slug', 'slug_ci' => 'slugCi', 'parent_id' => 'parentId', 'created_at' => 'createdAt', 'updated_at' => 'updatedAt', 'version' => 'version', 'deleted_at' => 'deletedAt', 'is_live' => 'isLive' ];
+    private const COL_TO_PROP = [ 'id' => 'id', 'tenant_id' => 'tenantId', 'name' => 'name', 'name_ci' => 'nameCi', 'slug' => 'slug', 'slug_ci' => 'slugCi', 'parent_id' => 'parentId', 'created_at' => 'createdAt', 'updated_at' => 'updatedAt', 'version' => 'version', 'deleted_at' => 'deletedAt', 'is_live' => 'isLive' ];
 
     /** @var string[] */
     private const BOOL_COLS   = [];
