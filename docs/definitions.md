@@ -3,15 +3,20 @@
 Hierarchical product categories.
 
 ## Columns
-| Column | Type | Null | Default | Description |
-| --- | --- | --- | --- | --- |
-| id | BIGINT | NO |  | Surrogate primary key. |
-| name | VARCHAR(255) | NO |  | Category name. |
-| slug | VARCHAR(255) | NO |  | Unique slug. |
-| parent_id | BIGINT | YES |  | Parent category (self-FK), nullable. |
-| created_at | mysql: DATETIME(6) / postgres: TIMESTAMPTZ(6) | NO | CURRENT_TIMESTAMP(6) | Creation timestamp (UTC). |
-| updated_at | mysql: DATETIME(6) / postgres: TIMESTAMPTZ(6) | NO | CURRENT_TIMESTAMP(6) | Update timestamp (UTC). |
-| deleted_at | mysql: DATETIME(6) / postgres: TIMESTAMPTZ(6) | YES |  | Soft delete timestamp. |
+| Column | Type | Null | Default | Description | Crypto |
+| --- | --- | --- | --- | --- | --- |
+| id | BIGINT | NO |  | Surrogate primary key. |  |
+| tenant_id | BIGINT | NO |  | Owning tenant (FK tenants.id). |  |
+| name | VARCHAR(255) | NO |  | Category name. |  |
+| name_ci | mysql: VARCHAR(255) / postgres: TEXT | YES |  | Generated lowercase name used for case-insensitive search/uniqueness. |  |
+| slug | VARCHAR(255) | NO |  | Unique slug. |  |
+| slug_ci | mysql: VARCHAR(255) / postgres: TEXT | YES |  | Generated lowercase slug used for case-insensitive uniqueness. |  |
+| parent_id | BIGINT | YES |  | Parent category (self-FK), nullable. |  |
+| created_at | mysql: DATETIME(6) / postgres: TIMESTAMPTZ(6) | NO | CURRENT_TIMESTAMP(6) | Creation timestamp (UTC). |  |
+| updated_at | mysql: DATETIME(6) / postgres: TIMESTAMPTZ(6) | NO | CURRENT_TIMESTAMP(6) | Update timestamp (UTC). |  |
+| version | mysql: INT / postgres: INTEGER | NO | 0 | Optimistic locking version counter. |  |
+| deleted_at | mysql: DATETIME(6) / postgres: TIMESTAMPTZ(6) | YES |  | Soft delete timestamp. |  |
+| is_live | mysql: TINYINT(1) / postgres: BOOLEAN | YES |  | Generated flag (deleted_at IS NULL). |  |
 
 ## Engine Details
 
